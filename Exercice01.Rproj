@@ -1,0 +1,209 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyOhLYbMkNDCXuawx79yiwuG",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "ir",
+      "display_name": "R"
+    },
+    "language_info": {
+      "name": "R"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/Leila828/ML-Notebooks/blob/main/Exercice01.Rproj\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 1,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "L0mTexcp0KTp",
+        "outputId": "96ba028e-cbcc-421b-a57d-6bd058b54327"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "[1] \"--- Task 1: Vector v_1 ---\"\n",
+            "[1] -0.9287679  0.9444710  0.8938550  0.4107813 -0.6876914\n",
+            "[1] \"--- Task 2: Vector v_2 ---\"\n",
+            "[1]  1.127849e+00 -4.286264e-16  3.000000e+00  3.605551e+00\n"
+          ]
+        },
+        {
+          "output_type": "stream",
+          "name": "stderr",
+          "text": [
+            "Warning message in matrix(all_data, nrow = 2, ncol = 5, byrow = TRUE):\n",
+            "“data length [9] is not a sub-multiple or multiple of the number of rows [2]”\n"
+          ]
+        },
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "[1] \"--- Task 3: Matrix m (2x5) ---\"\n",
+            "           [,1]          [,2]     [,3]      [,4]       [,5]\n",
+            "[1,] -0.9287679  9.444710e-01 0.893855 0.4107813 -0.6876914\n",
+            "[2,]  1.1278485 -4.286264e-16 3.000000 3.6055513 -0.9287679\n",
+            "[1] \"--- Task 4: Function examples ---\"\n",
+            "[1]  4 10 18\n"
+          ]
+        },
+        {
+          "output_type": "stream",
+          "name": "stderr",
+          "text": [
+            "Warning message in multpvectl(c, d):\n",
+            "“Vectors have different lengths. Recycling rule applied.”\n"
+          ]
+        },
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "[1] 1 4 3 8\n"
+          ]
+        }
+      ],
+      "source": [
+        "#\n",
+        "\n",
+        "# you can test exec directly in this Link as i worked online : https://colab.research.google.com/drive/1dDjtztJn8EM8yzqLGZ7cGPnXjLO7XDpy?authuser=0#scrollTo=L0mTexcp0KTp\n",
+        "\n",
+        "#\n",
+        "# 1. Create a vector v_1 of the values of sin(e^x) at x = 4, 3, 2, 1, 5.\n",
+        "\n",
+        "# Define the input values for x\n",
+        "x <- c(4, 3, 2, 1, 5)\n",
+        "\n",
+        "# Calculate v_1\n",
+        "v_1 <- sin(exp(x))\n",
+        "\n",
+        "# Print v_1\n",
+        "print(\"--- Task 1: Vector v_1 ---\")\n",
+        "print(v_1)\n",
+        "\n",
+        "\n",
+        "# 2. Create a vector v_2 of the values 53^(3/99), cos(3.5*pi), 3, abs(2 + 3i).\n",
+        "\n",
+        "# Create v_2. Note that abs(2 + 3i) is the complex modulus: sqrt(2^2 + 3^2)\n",
+        "v_2 <- c(53^(3/99), cos(3.5*pi), 3, abs(2 + 3i))\n",
+        "\n",
+        "# Print v_2\n",
+        "print(\"--- Task 2: Vector v_2 ---\")\n",
+        "print(v_2)\n",
+        "\n",
+        "\n",
+        "# 3. Create a matrix of 2 rows and 5 columns where data from v_1 and v_2.\n",
+        "\n",
+        "# v_1 has 5 elements and v_2 has 4 elements, for a total of 9.\n",
+        "# A 2x5 matrix requires 10 elements.\n",
+        "# We will combine v_1 and v_2. R will recycle the first element of v_1\n",
+        "# to fill the 10th spot.\n",
+        "# We use byrow = TRUE so that v_1 fills the first row.\n",
+        "\n",
+        "all_data <- c(v_1, v_2)\n",
+        "m <- matrix(all_data, nrow = 2, ncol = 5, byrow = TRUE)\n",
+        "\n",
+        "# Print the resulting matrix\n",
+        "print(\"--- Task 3: Matrix m (2x5) ---\")\n",
+        "print(m)\n",
+        "# Row 1 will be v_1\n",
+        "# Row 2 will be v_2, with v_1[1] recycled for the last element.\n",
+        "\n",
+        "\n",
+        "# 4. Write a function multpvectl, which takes two arguments vect1 and vect2\n",
+        "#    of any type. The function should return the multiplication of two vectors.\n",
+        "#    Write all the cases that a vector could have.\n",
+        "\n",
+        "# This function assumes \"multiplication\" means element-wise multiplication (*).\n",
+        "# The \"cases\" are handled by checking the vector types.\n",
+        "\n",
+        "multpvectl <- function(vect1, vect2) {\n",
+        "\n",
+        "  # --- Main Function Logic ---\n",
+        "\n",
+        "  # Case 1: Both vectors are numeric, logical, or complex.\n",
+        "  # These types support element-wise multiplication (*).\n",
+        "  if ((is.numeric(vect1) || is.logical(vect1) || is.complex(vect1)) &&\n",
+        "      (is.numeric(vect2) || is.logical(vect2) || is.complex(vect2))) {\n",
+        "\n",
+        "    # R's default behavior is to \"recycle\" the shorter vector.\n",
+        "    # We will preserve this but issue a warning if lengths are different.\n",
+        "    if (length(vect1) != length(vect2)) {\n",
+        "      warning(\"Vectors have different lengths. Recycling rule applied.\")\n",
+        "    }\n",
+        "\n",
+        "    # Return the element-wise multiplication\n",
+        "    return(vect1 * vect2)\n",
+        "\n",
+        "  } else if (is.character(vect1) || is.character(vect2)) {\n",
+        "    # Case 2: One or both vectors are of type character.\n",
+        "    # The * operator is not defined for character vectors.\n",
+        "    stop(\"Multiplication (*) is not defined for character vectors.\")\n",
+        "\n",
+        "  } else {\n",
+        "    # Case 3: Other types (e.g., lists, raw, etc.)\n",
+        "    stop(\"Input vectors are not of a type that supports element-wise multiplication.\")\n",
+        "  }\n",
+        "}\n",
+        "\n",
+        "# --- \"Cases that a vector could have\" (Explanation) ---\n",
+        "#\n",
+        "# The prompt is ambiguous about \"cases.\" The function above handles\n",
+        "# cases based on vector *type*.\n",
+        "#\n",
+        "# Other \"cases\" could refer to:\n",
+        "#\n",
+        "# 1. Interpretation of \"Multiplication\":\n",
+        "#    - Element-wise (implemented above): c(1, 2) * c(3, 4) -> c(3, 8)\n",
+        "#    - Dot Product: c(1, 2) %*% c(3, 4) -> 11 (a single value)\n",
+        "#    - Outer Product: c(1, 2) %o% c(3, 4) -> a 2x2 matrix\n",
+        "#\n",
+        "# 2. Vector Lengths (Recycling):\n",
+        "#    - If lengths differ, R recycles the shorter vector.\n",
+        "#    - e.g., c(1, 2, 3, 4) * c(1, 2) becomes c(1, 2, 3, 4) * c(1, 2, 1, 2)\n",
+        "#    - Our function preserves this default R behavior and issues a warning.\n",
+        "#\n",
+        "# --- Example Usage of the Function ---\n",
+        "\n",
+        "print(\"--- Task 4: Function examples ---\")\n",
+        "\n",
+        "# Example 1: Numeric, same length\n",
+        "a <- c(1, 2, 3)\n",
+        "b <- c(4, 5, 6)\n",
+        "print(multpvectl(a, b)) # Output: [1] 4 10 18\n",
+        "\n",
+        "# Example 2: Numeric, different length (Recycling)\n",
+        "c <- c(1, 2, 3, 4)\n",
+        "d <- c(1, 2)\n",
+        "# Will produce a warning\n",
+        "print(multpvectl(c, d)) # Output: [1] 1 4 3 8\n",
+        "\n",
+        "# Example 3: Character vector (Error)\n",
+        "e <- c(\"a\", \"b\")\n",
+        "f <- c(\"c\", \"d\")\n",
+        "# This will stop the script with an error message:\n",
+        "# try(print(multpvectl(e, f)))\n"
+      ]
+    }
+  ]
+}
